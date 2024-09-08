@@ -112,6 +112,5 @@ namespace WPF_FormularioInicioDeSesion.ViewModel
                 }
             }
         }
-
     }
 }

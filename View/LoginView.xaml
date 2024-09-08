@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_FormularioInicioDeSesion.View"
+        xmlns:viewModel="clr-namespace:WPF_FormularioInicioDeSesion.ViewModel"
+        xmlns:customcontrols="clr-namespace:WPF_FormularioInicioDeSesion.CustomControls"
         mc:Ignorable="d"
         Title="LoginView"
         Height="600"
@@ -14,6 +16,20 @@
         Background="Transparent"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
+
+    <Window.DataContext>
+        <viewModel:LoginViewModel />
+    </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+    </Window.Resources>
+
+    <Window.Visibility>
+        <Binding Path="IsViewVisible"
+                 Mode="TwoWay"
+                 Converter="{StaticResource BooleanToVisibility}" />
+    </Window.Visibility>
 
     <Border CornerRadius="12">
         <Border.Background>
@@ -207,7 +223,6 @@
                                         AlignmentX="Left" />
                         </PasswordBox.Background>
                     </PasswordBox>
-
                     <TextBlock Text="{Binding LoginMessage}"
                                Foreground= "{Binding MessageColor}"
                                FontSize="12"
@@ -216,6 +231,7 @@
                                Margin="0,5,0,0" />
 
                     <Button x:Name="btnLogin"
+                            Command="{Binding LoginCommand}"
                             BorderThickness="0"
                             Content="LOG IN"
                             Foreground="White"
@@ -271,9 +287,6 @@
                     </StackPanel>
                 </StackPanel>
             </Grid>
-
-
-
         </Border>
     </Border>
 
