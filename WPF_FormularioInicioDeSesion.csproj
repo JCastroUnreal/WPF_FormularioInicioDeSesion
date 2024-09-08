@@ -10,17 +10,26 @@
 
   <ItemGroup>
     <None Remove="Images\Background_A.jpg" />
+    <None Remove="Images\key-solid.png" />
     <None Remove="Images\me.jpeg" />
+    <None Remove="Images\user-solid.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Model\" />
-    <Folder Include="ViewModel\" />
+    <Folder Include="CustomControls\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Images\Background_A.jpg" />
+    <Resource Include="Images\key-solid.png" />
     <Resource Include="Images\me.jpeg" />
+    <Resource Include="Images\user-solid.png" />
   </ItemGroup>
 
 </Project>

@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
+using WPF_FormularioInicioDeSesion.ViewModel;
 
 namespace WPF_FormularioInicioDeSesion.View
 {
@@ -21,7 +23,9 @@ namespace WPF_FormularioInicioDeSesion.View
     {
         public LoginView()
         {
+            Console.WriteLine("Iniciado");
             InitializeComponent();
+            this.DataContext = new LoginViewModel();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -42,9 +46,10 @@ namespace WPF_FormularioInicioDeSesion.View
             Application.Current.Shutdown();
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        private void OnLoginClick(object sender, RoutedEventArgs e)
         {
-
+            var viewModel = (LoginViewModel)this.DataContext;
+            viewModel.Password = txtPassword.Password;
         }
     }
 }
