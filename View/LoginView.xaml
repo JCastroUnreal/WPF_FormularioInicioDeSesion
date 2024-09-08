@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_FormularioInicioDeSesion.View"
         xmlns:viewModel="clr-namespace:WPF_FormularioInicioDeSesion.ViewModel"
-        xmlns:customcontrols="clr-namespace:WPF_FormularioInicioDeSesion.CustomControls"
         mc:Ignorable="d"
         Title="LoginView"
         Height="600"
@@ -239,7 +238,6 @@
                             FontFamily="Montserrat"
                             Cursor="Hand"
                             Margin="0,35,0,0"
-                            Command="{Binding LoginCommand}"
                             Click="OnLoginClick"
                             Grid.Column="2">
                         <Button.Style>
