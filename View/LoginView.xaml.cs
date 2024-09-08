@@ -30,7 +30,7 @@ namespace WPF_FormularioInicioDeSesion.View
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(e.LeftButton == MouseButtonState.Pressed)
+            if (e.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
             }
@@ -50,6 +50,16 @@ namespace WPF_FormularioInicioDeSesion.View
         {
             var viewModel = (LoginViewModel)this.DataContext;
             viewModel.Password = txtPassword.Password;
+        }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            var passwordBox = sender as PasswordBox;
+            var viewModel = (LoginViewModel)this.DataContext;
+            if (viewModel != null)
+            {
+                viewModel.Password = passwordBox.Password;
+            }
         }
     }
 }

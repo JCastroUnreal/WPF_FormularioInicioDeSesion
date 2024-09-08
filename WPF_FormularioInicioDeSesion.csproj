@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CustomControls\**" />
+    <EmbeddedResource Remove="CustomControls\**" />
+    <None Remove="CustomControls\**" />
+    <Page Remove="CustomControls\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Images\Background_A.jpg" />
     <None Remove="Images\key-solid.png" />
     <None Remove="Images\me.jpeg" />
@@ -16,12 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="CustomControls\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 

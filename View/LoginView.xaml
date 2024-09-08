@@ -189,6 +189,7 @@
                                FontFamily="Montserrat"
                                Margin="0,25,0,0" />
                     <PasswordBox x:Name="txtPassword"
+                                 PasswordChanged="PasswordBox_PasswordChanged"
                                  FontSize="13"
                                  FontWeight="Medium"
                                  FontFamily="Montserrat"
@@ -206,6 +207,13 @@
                                         AlignmentX="Left" />
                         </PasswordBox.Background>
                     </PasswordBox>
+
+                    <TextBlock Text="{Binding LoginMessage}"
+                               Foreground= "{Binding MessageColor}"
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               Margin="0,5,0,0" />
 
                     <Button x:Name="btnLogin"
                             BorderThickness="0"
@@ -261,12 +269,6 @@
                                    FontFamily="Montserrat"
                                    Margin="15,15,0,0" />
                     </StackPanel>
-                </StackPanel>
-                <StackPanel Width="250"
-                            Grid.Row="1"
-                            HorizontalAlignment="Left"
-                            Background="Red">
-
                 </StackPanel>
             </Grid>
 
