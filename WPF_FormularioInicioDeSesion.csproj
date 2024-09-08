@@ -9,17 +9,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CustomControls\**" />
+    <EmbeddedResource Remove="CustomControls\**" />
+    <None Remove="CustomControls\**" />
+    <Page Remove="CustomControls\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Images\Background_A.jpg" />
     <None Remove="Images\key-solid.png" />
-    <None Remove="Images\key-solid.svg" />
     <None Remove="Images\me.jpeg" />
+    <None Remove="Images\user-solid.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Images\Background_A.jpg" />
     <Resource Include="Images\key-solid.png" />
-    <Resource Include="Images\key-solid.svg" />
     <Resource Include="Images\me.jpeg" />
+    <Resource Include="Images\user-solid.png" />
   </ItemGroup>
 
 </Project>

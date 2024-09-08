@@ -157,13 +157,13 @@
                     <Image Source="/Images/me.jpeg"
                            Width="100"
                            Height="100" />
-                    <TextBlock Text="JC CODE"
+                    <TextBlock Text="JC Login"
                                Foreground="White"
                                FontSize="25"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                HorizontalAlignment="Center" />
-                    <TextBlock Text="Learning to code is useful no matter what your career ambitions are."
+                    <TextBlock Text="Aprender es la unica manera de avanzar."
                                Foreground="LightGray"
                                FontSize="12"
                                FontWeight="Medium"
@@ -190,10 +190,10 @@
                              Height="28"
                              VerticalContentAlignment="Center"
                              Margin="0,5,0,0"
-                             Padding="20,0,0,0">
+                             Padding="30,0,0,0">
                         <TextBox.Background>
-                            <ImageBrush ImageSource="/Images/me.jpeg"
-                                        Stretch="None"
+                            <ImageBrush ImageSource="/Images/user-solid.png"
+                                        Stretch="Uniform"
                                         AlignmentX="Left" />
                         </TextBox.Background>
                     </TextBox>
@@ -204,17 +204,31 @@
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                Margin="0,25,0,0" />
-                    <customcontrols:BindablePasswordBox Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                        Height="28"
-                                                        Margin="0,5,0,0">
-                    </customcontrols:BindablePasswordBox>
-                    <TextBlock Text="{Binding ErrorMessage}"
-                               Foreground="#D7596D"
+                    <PasswordBox x:Name="txtPassword"
+                                 PasswordChanged="PasswordBox_PasswordChanged"
+                                 FontSize="13"
+                                 FontWeight="Medium"
+                                 FontFamily="Montserrat"
+                                 Foreground="White"
+                                 CaretBrush="LightGray"
+                                 BorderBrush="DarkGray"
+                                 BorderThickness="0,0,0,1"
+                                 Height="28"
+                                 VerticalContentAlignment="Center"
+                                 Margin="0,5,0,0"
+                                 Padding="30,0,0,0">
+                        <PasswordBox.Background>
+                            <ImageBrush ImageSource="/Images/key-solid.png"
+                                        Stretch="Uniform"
+                                        AlignmentX="Left" />
+                        </PasswordBox.Background>
+                    </PasswordBox>
+                    <TextBlock Text="{Binding LoginMessage}"
+                               Foreground= "{Binding MessageColor}"
                                FontSize="12"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
-                               TextWrapping="Wrap"
-                               Margin="0,10,0,0" />
+                               Margin="0,5,0,0" />
 
                     <Button x:Name="btnLogin"
                             Command="{Binding LoginCommand}"
@@ -225,11 +239,13 @@
                             FontFamily="Montserrat"
                             Cursor="Hand"
                             Margin="0,35,0,0"
+                            Command="{Binding LoginCommand}"
+                            Click="OnLoginClick"
                             Grid.Column="2">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background"
-                                        Value="#462AD7" />
+                                        Value="#462AD8" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver"
                                              Value="True">
@@ -271,9 +287,6 @@
                     </StackPanel>
                 </StackPanel>
             </Grid>
-
-
-
         </Border>
     </Border>
 

@@ -1,95 +1,116 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Linq;
-using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Xml.Linq;
 
 namespace WPF_FormularioInicioDeSesion.ViewModel
 {
-    public class LoginViewModel : ViewModelBase
+    public class LoginViewModel : INotifyPropertyChanged
     {
-        // Fields
         private string _username;
-        private SecureString _password;
-        private string _errorMessage;
-        private bool _isViewVisible = true;
+        private string _password;
+        private string _loginMessage;
+        private Brush _messageColor;
+        private string connectionString = "Server = localhost\\SQLEXPRESS;Database=MVVMLoginDb;Trusted_Connection=True;";
 
-        // Properties
         public string Username
         {
-            get => _username;
+            get { return _username; }
             set
             {
                 _username = value;
                 OnPropertyChanged(nameof(Username));
+                ((RelayCommand)LoginCommand).RaiseCanExecuteChanged();
             }
         }
-        public SecureString Password
+
+        public string Password
         {
-            get => _password;
+            get { return _password; }
             set
             {
                 _password = value;
                 OnPropertyChanged(nameof(Password));
-            }
-        }
-        public string ErrorMessage
-        {
-            get => _errorMessage;
-            set
-            {
-                _errorMessage = value;
-                OnPropertyChanged(nameof(ErrorMessage));
-            }
-        }
-        public bool IsViewVisible
-        {
-            get => _isViewVisible;
-            set
-            {
-                _isViewVisible = value;
-                OnPropertyChanged(nameof(IsViewVisible));
+                ((RelayCommand)LoginCommand).RaiseCanExecuteChanged();
             }
         }
 
-        // Commands
+        public string LoginMessage
+        {
+            get { return _loginMessage; }
+            set
+            {
+                _loginMessage = value;
+                OnPropertyChanged(nameof(LoginMessage));
+            }
+        }
+
+        public Brush MessageColor
+        {
+            get { return _messageColor; }
+            set
+            {
+                _messageColor = value;
+                OnPropertyChanged(nameof(MessageColor));
+            }
+        }
+
         public ICommand LoginCommand { get; }
-        public ICommand RecoveryPasswordCommand { get; }
-        public ICommand ShowPasswordCommand { get; }
-        public ICommand RememberPasswordCommand { get; }
 
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        // Constructor
         public LoginViewModel()
         {
-            LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-            RecoveryPasswordCommand = new ViewModelCommand(p => ExecuteRecoveryPassCommand("", ""));
+            LoginCommand = new RelayCommand(Login, CanLogin);
         }
 
-        private void ExecuteRecoveryPassCommand(string username, string email)
+        private void OnPropertyChanged(string propertyName)
         {
-            throw new NotImplementedException();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private bool CanExecuteLoginCommand(object obj)
+        private bool CanLogin(object parameter)
         {
-            bool validData;
-            if (string.IsNullOrEmpty(Username) || Username.Length < 3 || Password == null || Password.Length < 3)
+            return !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password);
+        }
+
+        private void Login(object parameter)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                validData = false;
-            } else
-            {
-                validData = true;
+                connection.Open();
+                string query = "SELECT * FROM [MVVMLoginDb].[dbo].[User] WHERE Username = @Username AND Password = @Password";
+                Console.WriteLine("Consulta realizada");
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Username", Username);
+                command.Parameters.AddWithValue("@Password", Password);
+
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    // Usuario encontrado
+                    while (reader.Read())
+                    {
+                        string name = reader["Name"].ToString();
+                        LoginMessage = $"Bienvenido {name}";
+                        MessageColor = Brushes.Green;
+                        // Lo que ocurre si es correcto
+                    }
+                } else
+                {
+                    // Login fallido
+                    LoginMessage = "Error en el usuario o contraseña";
+                    MessageColor = Brushes.Red;
+                }
             }
-
-            return validData;
-        }
-
-        private void ExecuteLoginCommand(object obj)
-        {
-            throw new NotImplementedException();
         }
     }
 }
